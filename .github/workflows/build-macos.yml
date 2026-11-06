@@ -19,7 +19,7 @@ jobs:
         run: |
           bundle=build_macos/rundir/RelWithDebInfo/darts-atlas-obs.plugin
           test -d "$bundle"
-          lipo -verify_arch arm64 x86_64 "$bundle/Contents/MacOS/darts-atlas-obs"
+          lipo "$bundle/Contents/MacOS/darts-atlas-obs" -verify_arch arm64 x86_64
           codesign --verify --strict "$bundle"
           test -s "$bundle/Contents/Resources/themes/BHDP Teal/live_groups.css"
           test -s "$bundle/Contents/Resources/themes/BHDP Teal/bracket.css"
