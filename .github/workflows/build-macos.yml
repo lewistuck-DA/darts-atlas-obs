@@ -1,0 +1,31 @@
+name: Build macOS test plugin
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  macos:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build universal plugin
+        run: |
+          cmake --preset macos
+          cmake --build --preset macos
+      - name: Archive plugin bundle
+        run: |
+          bundle=build_macos/rundir/RelWithDebInfo/darts-atlas-obs.plugin
+          test -d "$bundle"
+          lipo -verify_arch arm64 x86_64 "$bundle/Contents/MacOS/darts-atlas-obs"
+          codesign --verify --strict "$bundle"
+          test -s "$bundle/Contents/Resources/themes/BHDP Teal/live_groups.css"
+          test -s "$bundle/Contents/Resources/themes/BHDP Teal/bracket.css"
+          ditto -c -k --keepParent "$bundle" darts-atlas-obs-macos.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: darts-atlas-obs-macos
+          path: darts-atlas-obs-macos.zip
+          if-no-files-found: error

@@ -1,0 +1,2883 @@
+/* Darts Atlas live_groups — BHDP teal, black and white standings.
+
+   Load AFTER the site's existing CSS, or paste into a custom CSS field.
+
+   Based on the inspected 8-column table: rank, name, Avg, W, L, LA, LD, Pts.
+
+   All groups remain available by scrolling. No HTML changes required.
+
+   The reference's clock, event banner and sponsors need additional HTML/data.
+
+*/
+
+
+
+body.bracket:has(.live-tournament-groups) {
+
+  --groups-gold: #f0ebd8;
+
+  --groups-text: #f0ebd8;
+
+  --groups-muted: #f0ebd8;
+
+  display: block !important;
+
+  min-height: 100vh;
+
+  margin: 0 !important;
+
+  padding: 24px 16px 32px !important;
+
+  box-sizing: border-box;
+
+  border-left: 5px solid var(--groups-gold);
+
+  background: linear-gradient(to bottom, rgb(29, 45, 68), rgb(29, 45, 68)) fixed !important;
+
+  color: var(--groups-text);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+
+body.bracket:has(.live-tournament-groups) #siteHeader {
+
+  display: none !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups,
+
+body.bracket .live-tournament-groups * {
+
+  box-sizing: border-box;
+
+}
+
+
+
+body.bracket .live-tournament-groups {
+
+  display: grid !important;
+
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+
+  align-items: stretch !important;
+
+  gap: 24px !important;
+
+  width: 100% !important;
+
+  max-width: none !important;
+
+  margin: 0 auto !important;
+
+  padding: 0 !important;
+
+  list-style: none !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups::before {
+
+  content: "GROUPS";
+
+  grid-column: 1 / -1;
+
+  display: block;
+
+  padding: 0 6px 16px;
+
+  border-bottom: 1px solid #3e5c76;
+
+  color: var(--groups-gold);
+
+  font-size: clamp(26px, 7vw, 40px);
+
+  font-weight: 900;
+
+  line-height: 1;
+
+  letter-spacing: 3px;
+
+}
+
+
+
+body.bracket .live-tournament-groups > li {
+
+  container-type: inline-size;
+
+  position: relative !important;
+
+  display: block !important;
+
+  flex: none !important;
+
+  width: 100% !important;
+
+  min-width: 0 !important;
+
+  max-width: none !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  overflow: hidden;
+
+  border: 1px solid #3e5c76 !important;
+
+  border-radius: 14px;
+
+  background: #1d2d44 !important;
+
+  box-shadow: 0 5px 16px rgb(0 0 0 / 16%);
+
+}
+
+
+
+/* Put the existing group title over the empty name cells of the header. */
+
+body.bracket .live-tournament-groups > li > h2 {
+
+  position: absolute !important;
+
+  z-index: 1;
+
+  inset: 0 auto auto 10%;
+
+  display: flex !important;
+
+  align-items: center;
+
+  width: 49%;
+
+  height: 54px;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  border: 0 !important;
+
+  background: transparent !important;
+
+  color: var(--groups-gold) !important;
+
+  font: 900 clamp(16px, 5.2cqw, 27px)/1 Arial, Helvetica, sans-serif;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+
+}
+
+
+
+body.bracket .live-tournament-groups > li > h2 a {
+
+  color: inherit !important;
+
+  font: inherit;
+
+  text-decoration: none !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .rankings-container {
+
+  display: block !important;
+
+  width: 100% !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  overflow: visible !important;
+
+  border: 0 !important;
+
+  background: transparent !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups table.standings {
+
+  display: block !important;
+
+  width: 100% !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  border: 0 !important;
+
+  border-collapse: collapse;
+
+  background: transparent !important;
+
+  color: var(--groups-text) !important;
+
+  font: 400 clamp(15px, 5.2cqw, 27px)/1.15 Arial, Helvetica, sans-serif;
+
+  font-variant-numeric: tabular-nums;
+
+}
+
+
+
+body.bracket .live-tournament-groups table.standings thead,
+
+body.bracket .live-tournament-groups table.standings tbody {
+
+  display: block !important;
+
+  width: 100%;
+
+}
+
+
+
+body.bracket .live-tournament-groups table.standings tr {
+
+  display: grid !important;
+
+  grid-template-columns: 8% minmax(0, 1fr) 7% 7% 10% 13%;
+
+  align-items: center;
+
+  width: 100%;
+
+  min-height: 48px;
+
+  margin: 0 !important;
+
+  padding: 0 8px 0 6px;
+
+  border: 0 !important;
+
+  background: transparent !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups table.standings thead tr {
+
+  height: 54px;
+
+  background: linear-gradient(to bottom, #1d2d44, #1d2d44) !important;
+
+  color: var(--groups-muted);
+
+  font-size: clamp(12px, 4.1cqw, 21px);
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+
+}
+
+
+
+body.bracket .live-tournament-groups table.standings tbody tr:nth-child(even) {
+
+  background: #1d2d44 !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups table.standings tr > :is(td, th) {
+
+  display: block !important;
+
+  width: auto !important;
+
+  min-width: 0 !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  border: 0 !important;
+
+  background: transparent !important;
+
+  color: inherit !important;
+
+  font: inherit;
+
+  text-align: center;
+
+  vertical-align: middle;
+
+}
+
+
+
+/* Both LA and LD share a class on this page; hide LA by column position. */
+
+body.bracket .live-tournament-groups table.standings tr > .average,
+
+body.bracket .live-tournament-groups table.standings tr > :nth-child(6) {
+
+  display: none !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups table.standings tbody tr > .rank {
+
+  color: var(--groups-muted) !important;
+
+  font-size: 0.88em;
+
+}
+
+
+
+body.bracket .live-tournament-groups table.standings tbody tr > :nth-child(2) {
+
+  padding-left: 5px !important;
+
+  overflow: hidden;
+
+  font-weight: 700;
+
+  text-align: left;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+}
+
+
+
+body.bracket .live-tournament-groups table.standings tbody tr > :nth-child(2) > span {
+
+  font: inherit;
+
+  color: inherit;
+
+}
+
+
+
+body.bracket .live-tournament-groups table.standings tbody tr > .points {
+
+  display: flex !important;
+
+  align-items: center;
+
+  justify-content: center;
+
+  height: 39px;
+
+  margin: 4px 1px 4px 5px !important;
+
+  border: 1px solid #f0ebd8 !important;
+
+  border-radius: 6px;
+
+  background: linear-gradient(to bottom, #f0ebd8, #f0ebd8) !important;
+
+  color: #1d2d44 !important;
+
+  font-weight: 900;
+
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 30%);
+
+}
+
+
+
+body.bracket .live-tournament-groups a {
+
+  color: inherit;
+
+  text-decoration: none !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups a:focus-visible {
+
+  outline: 2px solid var(--groups-gold);
+
+  outline-offset: 2px;
+
+}
+
+
+
+/* Fixtures beneath each group's standings. */
+
+body.bracket .live-tournament-groups > li > .live-matches {
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 10px !important;
+
+  width: 100% !important;
+
+  margin: 0 !important;
+
+  padding: 0 10px 12px !important;
+
+  border-top: 1px solid #3e5c76;
+
+  background: #1d2d44 !important;
+
+  list-style: none !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches::before {
+
+  content: "FIXTURES";
+
+  display: block;
+
+  margin: 0 -10px 2px;
+
+  padding: 16px 18px;
+
+  background: linear-gradient(to bottom, #1d2d44, #1d2d44);
+
+  color: var(--groups-gold);
+
+  font: 900 clamp(16px, 4.4cqw, 23px)/1 Arial, Helvetica, sans-serif;
+
+  letter-spacing: 2px;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches > li {
+
+  display: block !important;
+
+  flex: none !important;
+
+  width: 100% !important;
+
+  min-width: 0 !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  border: 0 !important;
+
+  background: transparent !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score {
+
+  display: flex !important;
+
+  position: relative;
+
+  flex-direction: column !important;
+
+  gap: 10px;
+
+  width: 100% !important;
+
+  min-width: 0 !important;
+
+  height: auto !important;
+
+  margin: 0 !important;
+
+  padding: 12px !important;
+
+  border: 1px solid #3e5c76 !important;
+
+  border-radius: 9px;
+
+  background: #1d2d44 !important;
+
+  color: var(--groups-text) !important;
+
+  font: 400 clamp(15px, 4.4cqw, 23px)/1.25 Arial, Helvetica, sans-serif;
+
+  text-decoration: none !important;
+
+  box-shadow: 0 3px 8px rgb(0 0 0 / 12%);
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches > li:nth-child(even) .box-score {
+
+  background: #1d2d44 !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score.boarded {
+
+  border-left: 4px solid var(--groups-gold) !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .board-number {
+
+  position: static !important;
+
+  align-self: flex-start;
+
+  width: auto !important;
+
+  margin: 0 !important;
+
+  padding: 5px 9px !important;
+
+  border: 1px solid #f0ebd8 !important;
+
+  border-radius: 5px;
+
+  background: linear-gradient(to bottom, #f0ebd8, #f0ebd8) !important;
+
+  color: #1d2d44 !important;
+
+  font-size: 0.7em;
+
+  font-weight: 900;
+
+  line-height: 1.2;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .name-and-score {
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 7px;
+
+  width: 100% !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .player {
+
+  display: grid !important;
+
+  grid-template-columns: minmax(0, 1fr) auto;
+
+  align-items: center;
+
+  gap: 10px;
+
+  width: 100% !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  border: 0 !important;
+
+  background: transparent !important;
+
+  color: var(--groups-text) !important;
+
+  font-weight: 700;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .player .name {
+
+  display: block !important;
+
+  min-width: 0;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  color: inherit !important;
+
+  text-align: left;
+
+  white-space: normal;
+
+  overflow-wrap: anywhere;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .seed {
+
+  color: var(--groups-muted);
+
+  font-size: 0.75em;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .score {
+
+  display: flex !important;
+
+  position: static !important;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-width: 42px;
+
+  min-height: 34px;
+
+  margin: 0 !important;
+
+  padding: 3px 8px !important;
+
+  border: 1px solid #f0ebd8 !important;
+
+  border-radius: 5px;
+
+  background: linear-gradient(to bottom, #f0ebd8, #f0ebd8) !important;
+
+  color: #1d2d44 !important;
+
+  font-weight: 900;
+
+  font-variant-numeric: tabular-nums;
+
+}
+
+
+
+/* Scheduled matches have empty scores: don't invent a zero score. */
+
+body.bracket .live-tournament-groups .live-matches .score:empty {
+
+  display: none !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .marker {
+
+  display: block !important;
+
+  position: static !important;
+
+  width: 100% !important;
+
+  margin: 0 !important;
+
+  padding: 8px 0 0 !important;
+
+  border-top: 1px solid #3e5c76;
+
+  background: transparent !important;
+
+  color: var(--groups-muted) !important;
+
+  font-size: 0.7em;
+
+  line-height: 1.4;
+
+  text-align: left;
+
+  white-space: normal;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .marker svg {
+
+  color: var(--groups-gold);
+
+  margin-right: 5px;
+
+}
+
+
+
+@media (max-width: 420px) {
+
+  body.bracket:has(.live-tournament-groups) {
+
+    padding: 18px 10px 24px !important;
+
+  }
+
+  body.bracket .live-tournament-groups { gap: 18px !important; }
+
+  body.bracket .live-tournament-groups > li > h2,
+
+  body.bracket .live-tournament-groups table.standings thead tr { height: 44px; }
+
+  body.bracket .live-tournament-groups table.standings tr { min-height: 39px; }
+
+  body.bracket .live-tournament-groups table.standings tbody tr > .points { height: 31px; }
+
+}
+
+
+
+/* Horizontal broadcast-style match cards. Existing .score values are LEGS,
+
+   not remaining dart totals. Optional data-remaining and data-average on each
+
+   .player can supply the extra information shown in the reference image.
+
+   Set data-format on .box-score only when the actual format is known.
+
+*/
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) {
+
+  display: grid !important;
+
+  grid-template-columns: minmax(0, 1fr);
+
+  gap: 0;
+
+  padding: 14px 10px 0 !important;
+
+  overflow: hidden;
+
+  border: 1px solid #3e5c76 !important;
+
+  border-radius: 15px;
+
+  background: linear-gradient(to bottom, rgb(29, 45, 68), rgb(29, 45, 68)) !important;
+
+  font-size: clamp(12px, 3.5cqw, 20px);
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches > li:nth-child(even) .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) {
+
+  background: linear-gradient(to bottom, rgb(29, 45, 68), rgb(29, 45, 68)) !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)).boarded {
+
+  border-left: 1px solid #3e5c76 !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .board-number {
+
+  display: none !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .name-and-score {
+
+  position: relative;
+
+  display: grid !important;
+
+  grid-template-columns: minmax(0, 1fr) 34px 34px minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 4px;
+
+  min-height: 76px;
+
+  padding: 10px 0 20px !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player {
+
+  display: contents !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player .name {
+
+  grid-row: 1;
+
+  align-self: center;
+
+  padding: 10px 6px !important;
+
+  border-radius: 7px;
+
+  background: #1d2d44 !important;
+
+  color: #f0ebd8 !important;
+
+  font-size: 0.85em;
+
+  font-weight: 900;
+
+  line-height: 1.15;
+
+  text-align: center;
+
+  text-transform: uppercase;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player-1 .name { grid-column: 1; }
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player-2 .name {
+
+  grid-column: 4;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player.throwing .name {
+
+  background: linear-gradient(110deg, #f0ebd8, #f0ebd8 55%, #f0ebd8) !important;
+
+  color: #f0ebd8 !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player .score {
+
+  grid-row: 1;
+
+  min-width: 0;
+
+  min-height: 0;
+
+  padding: 0 !important;
+
+  border: 0 !important;
+
+  border-radius: 0;
+
+  background: transparent !important;
+
+  box-shadow: none;
+
+  color: #f0ebd8 !important;
+
+  font-size: 1.55em;
+
+  font-weight: 900;
+
+  font-style: italic;
+
+  line-height: 1;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player-1 .score { grid-column: 2; }
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player-2 .score { grid-column: 3; }
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .name-and-score:has(.score:not(:empty))::after {
+
+  content: "LEGS";
+
+  position: absolute;
+
+  bottom: 3px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  color: var(--groups-muted);
+
+  font-size: 0.5em;
+
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .marker {
+
+  width: auto !important;
+
+  margin: 10px -10px 0 !important;
+
+  padding: 9px 10px !important;
+
+  border-top: 1px solid #3e5c76;
+
+  background: rgb(0 0 0 / 40%) !important;
+
+  font-size: 0.6em;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  text-align: center;
+
+}
+
+
+
+/* Optional real match data; CSS does not calculate or invent these values. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw))[data-format]::before {
+
+  content: attr(data-format);
+
+  color: var(--groups-muted);
+
+  font-size: 0.55em;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+
+  text-align: center;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player[data-remaining]::before {
+
+  content: attr(data-remaining);
+
+  grid-row: 2;
+
+  justify-self: center;
+
+  display: grid;
+
+  place-items: center;
+
+  width: 58px;
+
+  height: 58px;
+
+  border: 5px solid #f0ebd8;
+
+  border-bottom-color: #f0ebd8;
+
+  border-radius: 50%;
+
+  color: #f0ebd8;
+
+  font-size: 1.5em;
+
+  font-style: italic;
+
+  font-weight: 900;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player-1[data-remaining]::before { grid-column: 1; }
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player-2[data-remaining]::before {
+
+  grid-column: 4;
+
+  border-color: var(--groups-gold);
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player[data-average]::after {
+
+  content: "AVG " attr(data-average);
+
+  grid-row: 3;
+
+  color: var(--groups-muted);
+
+  font-size: 0.55em;
+
+  font-weight: 700;
+
+  text-align: center;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player-1[data-average]::after { grid-column: 1; }
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player-2[data-average]::after { grid-column: 4; }
+
+
+
+/* Native live-scores markup: keep each remaining total on its player's side.
+
+   Throwing state may be supplied on the live-score player, separately from
+
+   the corresponding player name in .name-and-score. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores {
+
+  display: grid !important;
+
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+  direction: ltr;
+
+  gap: 12px;
+
+  width: 100% !important;
+
+  margin: 8px 0 0 !important;
+
+  padding: 0 !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player {
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  grid-row: 1 !important;
+
+  gap: 0;
+
+  min-width: 0;
+
+  overflow: visible;
+
+  order: 0 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player-1 {
+
+  grid-column: 1 !important;
+
+  align-items: flex-start;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player-2 {
+
+  grid-column: 2 !important;
+
+  align-items: flex-end;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  display: flex !important;
+
+  position: static !important;
+
+  flex: none !important;
+
+  order: 0 !important;
+
+  grid-area: auto !important;
+
+  width: 64px !important;
+
+  height: 64px !important;
+
+  min-width: 64px;
+
+  min-height: 64px;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  border: 5px solid var(--groups-gold) !important;
+
+  border-radius: 50% !important;
+
+  background: #1d2d44 !important;
+
+  color: #f0ebd8 !important;
+
+  font: italic 900 25px/1 Arial, Helvetica, sans-serif;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player-1 > .score {
+
+  border-color: #f0ebd8 !important;
+
+  border-bottom-color: #f0ebd8 !important;
+
+}
+
+
+
+/* Keep the card compact; remaining totals replace the throw-history strip. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores .leg-history {
+
+  display: none !important;
+
+}
+
+
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-1.throwing) > .name-and-score > .player-1 > .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-2.throwing) > .name-and-score > .player-2 > .name {
+
+  background: linear-gradient(110deg, #f0ebd8, #f0ebd8 55%, #f0ebd8) !important;
+
+  color: #f0ebd8 !important;
+
+}
+
+
+
+/* Throw history outside, remaining-score circles together in the middle. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores {
+
+  gap: 8px;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player {
+
+  display: grid !important;
+
+  align-items: center !important;
+
+  gap: 7px;
+
+  width: 100% !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player-1 {
+
+  grid-template-columns: minmax(0, 1fr) 64px;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player-2 {
+
+  grid-template-columns: 64px minmax(0, 1fr);
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  grid-row: 1 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player-1 > .score {
+
+  grid-column: 2 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player-2 > .score {
+
+  grid-column: 1 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores .leg-history {
+
+  display: flex !important;
+
+  grid-row: 1;
+
+  flex: none !important;
+
+  flex-wrap: nowrap !important;
+
+  align-items: center;
+
+  justify-content: flex-end !important;
+
+  gap: 5px;
+
+  min-width: 0;
+
+  width: 100% !important;
+
+  overflow: hidden;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  list-style: none;
+
+  color: var(--groups-muted);
+
+  font-size: 0.7em;
+
+  line-height: 1.3;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player-1 > .leg-history {
+
+  grid-column: 1;
+
+  flex-direction: row !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player-2 > .leg-history {
+
+  grid-column: 2;
+
+  flex-direction: row-reverse !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores .leg-history > li {
+
+  display: none !important;
+
+  flex: 0 0 auto !important;
+
+  width: auto !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  background: transparent !important;
+
+  font: inherit;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores .leg-history > li:nth-last-child(-n+4) {
+
+  display: block !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores .leg-history > li:last-child {
+
+  color: var(--groups-text);
+
+  font-weight: 800;
+
+}
+
+
+
+/* Compact in-progress cards. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) {
+
+  padding: 8px 10px 0 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .name-and-score {
+
+  min-height: 0;
+
+  padding: 0 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .name-and-score::after {
+
+  display: none !important;
+
+  content: none !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player .name {
+
+  padding: 6px !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores {
+
+  margin-top: 5px !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player-1 {
+
+  grid-template-columns: minmax(0, 1fr) 52px;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player-2 {
+
+  grid-template-columns: 52px minmax(0, 1fr);
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  width: 52px !important;
+
+  height: 52px !important;
+
+  min-width: 52px;
+
+  min-height: 52px;
+
+  border-width: 4px !important;
+
+  font-size: 22px;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .marker {
+
+  margin-top: 5px !important;
+
+  padding: 5px 10px !important;
+
+}
+
+
+
+/* Larger throw history and matching yellow-to-orange score rings. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores .leg-history {
+
+  font-size: clamp(14px, 4cqw, 20px);
+
+  gap: 6px;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  border: 4px solid transparent !important;
+
+  background:
+
+    linear-gradient(#1d2d44, #1d2d44) padding-box,
+
+    linear-gradient(135deg, #f0ebd8, #f0ebd8) border-box !important;
+
+}
+
+
+
+/* Filled remaining-score circles and more breathing room for throw history. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores {
+
+  padding: 0 6px !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player {
+
+  gap: 12px;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  border: 0 !important;
+
+  background: linear-gradient(135deg, #f0ebd8, #f0ebd8) !important;
+
+  color: #f0ebd8 !important;
+
+  text-shadow: 0 1px 2px rgb(13 19 33 / 25%);
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores .leg-history {
+
+  padding: 0 4px !important;
+
+}
+
+
+
+/* Match the highlighted player-name gradient. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  background: linear-gradient(110deg, #f0ebd8, #f0ebd8 55%, #f0ebd8) !important;
+
+}
+
+
+
+/* Upright remaining scores and a matching 3px gradient card outline. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  font-style: normal;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)),
+
+body.bracket .live-tournament-groups .live-matches > li:nth-child(even) .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)),
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)).boarded {
+
+  border: 3px solid transparent !important;
+
+  background:
+
+    linear-gradient(to bottom, rgb(29, 45, 68), rgb(29, 45, 68)) padding-box,
+
+    linear-gradient(110deg, #f0ebd8, #f0ebd8 55%, #f0ebd8) border-box !important;
+
+}
+
+
+
+/* Space the standings and fixtures without a section heading. */
+
+body.bracket .live-tournament-groups .live-matches::before {
+
+  content: none;
+
+  display: none;
+
+}
+
+body.bracket .live-tournament-groups > li > .live-matches {
+
+  padding-top: 12px !important;
+
+  border-top: 0;
+
+}
+
+
+
+/* BHDP: dark text on bright teal accents for clear contrast. */
+
+body.bracket .live-tournament-groups .live-matches .board-number,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player.throwing .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-1.throwing) > .name-and-score > .player-1 > .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-2.throwing) > .name-and-score > .player-2 > .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  color: #1d2d44 !important;
+
+  text-shadow: none;
+
+}
+
+
+
+/* Teal-led BHDP palette; existing layout and spacing retained. */
+
+body.bracket:has(.live-tournament-groups) {
+
+  --groups-gold: #1d2d44;
+
+  --groups-text: #f0ebd8;
+
+  --groups-muted: #f0ebd8;
+
+  border-left-color: #1d2d44;
+
+  background: linear-gradient(to bottom, #f0ebd8, #1d2d44) fixed !important;
+
+}
+
+body.bracket .live-tournament-groups::before {
+
+  color: #1d2d44;
+
+  border-bottom-color: #1d2d44;
+
+}
+
+body.bracket .live-tournament-groups > li {
+
+  border-color: #1d2d44 !important;
+
+  background: #f0ebd8 !important;
+
+}
+
+body.bracket .live-tournament-groups > li > h2 {
+
+  color: #f0ebd8 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings thead tr {
+
+  background: #1d2d44 !important;
+
+  color: #f0ebd8;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr {
+
+  background: #f0ebd8 !important;
+
+  color: #1d2d44 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr:nth-child(even) {
+
+  background: #3e5c76 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr > .rank {
+
+  color: #1d2d44 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr > .points {
+
+  border-color: #1d2d44 !important;
+
+  background: #1d2d44 !important;
+
+  color: #f0ebd8 !important;
+
+}
+
+body.bracket .live-tournament-groups > li > .live-matches {
+
+  background: #f0ebd8 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score,
+
+body.bracket .live-tournament-groups .live-matches > li:nth-child(even) .box-score {
+
+  border-color: #1d2d44 !important;
+
+  background: #1d2d44 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)),
+
+body.bracket .live-tournament-groups .live-matches > li:nth-child(even) .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)),
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)).boarded {
+
+  border-color: #f0ebd8 !important;
+
+  background: #1d2d44 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player .name {
+
+  background: #1d2d44 !important;
+
+  color: #f0ebd8 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player.throwing .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-1.throwing) > .name-and-score > .player-1 > .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-2.throwing) > .name-and-score > .player-2 > .name {
+
+  background: #f0ebd8 !important;
+
+  color: #1d2d44 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  background: #f0ebd8 !important;
+
+  color: #1d2d44 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .marker {
+
+  border-top-color: #3e5c76;
+
+  background: #1d2d44 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .marker svg {
+
+  color: #f0ebd8;
+
+}
+
+body.bracket .live-tournament-groups a:focus-visible {
+
+  outline-color: #f0ebd8;
+
+}
+
+
+
+/* Softer teal gradients add depth without changing the layout. */
+
+body.bracket:has(.live-tournament-groups) {
+
+  background: linear-gradient(145deg, #1d2d44 0%, #1d2d44 55%, #1d2d44 100%) fixed !important;
+
+}
+
+body.bracket .live-tournament-groups > li,
+
+body.bracket .live-tournament-groups > li > .live-matches {
+
+  background: linear-gradient(145deg, #1d2d44 0%, #1d2d44 100%) !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr {
+
+  background: linear-gradient(110deg, #3e5c76, #1d2d44) !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr:nth-child(even) {
+
+  background: linear-gradient(110deg, #3e5c76, #3e5c76) !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player.throwing .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-1.throwing) > .name-and-score > .player-1 > .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-2.throwing) > .name-and-score > .player-2 > .name {
+
+  background: linear-gradient(110deg, #3e5c76, #1d2d44) !important;
+
+}
+
+
+
+
+
+/* Final palette: molten lava, brick red, papaya whip, deep space blue, steel blue.
+
+   Colour-only overrides; all layout, sizing and match behaviour are preserved. */
+
+body.bracket:has(.live-tournament-groups) {
+
+  --molten-lava: #748cabff;
+
+  --brick-red: #f0ebd8ff;
+
+  --papaya-whip: #f0ebd8ff;
+
+  --deep-space-blue: #1d2d44ff;
+
+  --steel-blue: #3e5c76ff;
+
+  --groups-gold: var(--papaya-whip);
+
+  --groups-text: var(--papaya-whip);
+
+  --groups-muted: var(--steel-blue);
+
+  background: linear-gradient(145deg, #3e5c76 0%, #1d2d44 85%) fixed !important;
+
+  border-left-color: var(--brick-red);
+
+}
+
+body.bracket .live-tournament-groups::before {
+
+  color: var(--papaya-whip);
+
+  border-bottom-color: var(--steel-blue);
+
+}
+
+body.bracket .live-tournament-groups > li,
+
+body.bracket .live-tournament-groups > li > .live-matches {
+
+  background: linear-gradient(145deg, #1d2d44, #3e5c76) !important;
+
+  border-color: var(--steel-blue) !important;
+
+}
+
+body.bracket .live-tournament-groups > li > h2 {
+
+  color: var(--papaya-whip) !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings thead tr {
+
+  background: linear-gradient(110deg, #748cab, #f0ebd8) !important;
+
+  color: var(--papaya-whip);
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr {
+
+  background: #1d2d44 !important;
+
+  color: var(--papaya-whip) !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr:nth-child(even) {
+
+  background: linear-gradient(110deg, #1d2d44 45%, #3e5c76) !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr > .rank {
+
+  color: var(--papaya-whip) !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr > .points {
+
+  border-color: var(--molten-lava) !important;
+
+  background: linear-gradient(110deg, #748cab, #f0ebd8) !important;
+
+  color: var(--papaya-whip) !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score,
+
+body.bracket .live-tournament-groups .live-matches > li:nth-child(even) .box-score {
+
+  background: #1d2d44 !important;
+
+  border-color: var(--steel-blue) !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)),
+
+body.bracket .live-tournament-groups .live-matches > li:nth-child(even) .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)),
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)).boarded {
+
+  border-color: transparent !important;
+
+  background:
+
+    linear-gradient(#1d2d44, #1d2d44) padding-box,
+
+    linear-gradient(110deg, #748cab, #f0ebd8) border-box !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player .name {
+
+  background: #1d2d44 !important;
+
+  color: var(--papaya-whip) !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player.throwing .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-1.throwing) > .name-and-score > .player-1 > .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-2.throwing) > .name-and-score > .player-2 > .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  background: linear-gradient(110deg, #748cab, #f0ebd8) !important;
+
+  color: var(--papaya-whip) !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .marker {
+
+  background: #1d2d44 !important;
+
+  color: var(--papaya-whip) !important;
+
+  border-top-color: var(--steel-blue);
+
+}
+
+body.bracket .live-tournament-groups .live-matches .marker svg {
+
+  color: var(--steel-blue);
+
+}
+
+
+
+
+
+/* Ink black / deep space / slate / denim / eggshell palette. */
+
+body.bracket:has(.live-tournament-groups) {
+
+  --ink-black: #0d1321ff;
+
+  --deep-space-blue: #1d2d44ff;
+
+  --blue-slate: #3e5c76ff;
+
+  --dusty-denim: #748cabff;
+
+  --eggshell: #f0ebd8ff;
+
+  --groups-gold: var(--eggshell);
+
+  --groups-text: var(--eggshell);
+
+  --groups-muted: var(--dusty-denim);
+
+  background: var(--ink-black) !important;
+
+  border-left-color: var(--dusty-denim);
+
+}
+
+body.bracket .live-tournament-groups::before {
+
+  color: var(--eggshell);
+
+  border-bottom-color: var(--dusty-denim);
+
+}
+
+body.bracket .live-tournament-groups > li,
+
+body.bracket .live-tournament-groups > li > .live-matches {
+
+  background: linear-gradient(145deg, #1d2d44, #3e5c76) !important;
+
+  border-color: var(--dusty-denim) !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings thead tr {
+
+  background: #3e5c76 !important;
+
+  color: var(--eggshell);
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr {
+
+  background: #1d2d44 !important;
+
+  color: var(--eggshell) !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr:nth-child(even) {
+
+  background: linear-gradient(110deg, #1d2d44, #3e5c76) !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr > .points {
+
+  background: linear-gradient(110deg, #748cab, #f0ebd8) !important;
+
+  border-color: var(--dusty-denim) !important;
+
+  color: var(--ink-black) !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score,
+
+body.bracket .live-tournament-groups .live-matches > li:nth-child(even) .box-score {
+
+  background: linear-gradient(145deg, #1d2d44, #3e5c76) !important;
+
+  border-color: var(--dusty-denim) !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)),
+
+body.bracket .live-tournament-groups .live-matches > li:nth-child(even) .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)),
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)).boarded {
+
+  border-color: transparent !important;
+
+  background:
+
+    linear-gradient(145deg, #1d2d44, #3e5c76) padding-box,
+
+    linear-gradient(110deg, #748cab, #f0ebd8) border-box !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player .name {
+
+  background: #1d2d44 !important;
+
+  color: var(--eggshell) !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player.throwing .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-1.throwing) > .name-and-score > .player-1 > .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-2.throwing) > .name-and-score > .player-2 > .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  background: linear-gradient(110deg, #748cab, #f0ebd8) !important;
+
+  color: var(--ink-black) !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .marker {
+
+  background: #1d2d44 !important;
+
+  border-top-color: var(--dusty-denim);
+
+  color: var(--eggshell) !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .marker svg {
+
+  color: var(--dusty-denim);
+
+}
+
+
+
+/* Original navy depth with pink-to-teal accents. */
+
+body.bracket:has(.live-tournament-groups) {
+
+  --groups-gold: #00ffc2;
+
+  --groups-text: #f5f7fc;
+
+  --groups-muted: #a6b5d5;
+
+  background: linear-gradient(to bottom, rgb(30, 40, 74), rgb(20, 28, 48)) fixed !important;
+
+  border-left-color: #00ffc2;
+
+}
+
+body.bracket .live-tournament-groups::before {
+
+  color: #00ffc2;
+
+  border-bottom-color: #354776;
+
+}
+
+body.bracket .live-tournament-groups > li {
+
+  background: #0d1730 !important;
+
+  border-color: #354776 !important;
+
+}
+
+body.bracket .live-tournament-groups > li > h2 {
+
+  color: #00ffc2 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings thead tr {
+
+  background: linear-gradient(to bottom, #26396b, #1e305e) !important;
+
+  color: #a6b5d5;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr {
+
+  background: #0d1730 !important;
+
+  color: #f5f7fc !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr:nth-child(even) {
+
+  background: #17213a !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr > .rank {
+
+  color: #a6b5d5 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr > .points {
+
+  background: linear-gradient(110deg, #00ffc2, #00d8b0 50%, #00ffc2) !important;
+
+  border-color: #009e87 !important;
+
+  color: #111724 !important;
+
+}
+
+body.bracket .live-tournament-groups > li > .live-matches {
+
+  background: #0d1730 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score {
+
+  background: #17213a !important;
+
+  border-color: #354776 !important;
+
+  color: #f5f7fc !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches > li:nth-child(even) .box-score {
+
+  background: #0d1730 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)),
+
+body.bracket .live-tournament-groups .live-matches > li:nth-child(even) .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)),
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)).boarded {
+
+  border-color: transparent !important;
+
+  background:
+
+    linear-gradient(to bottom, #1e284a, #141c30) padding-box,
+
+    linear-gradient(110deg, #00ffc2, #00d8b0 50%, #00ffc2) border-box !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player .name {
+
+  background: #283154 !important;
+
+  color: #f5f7fc !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player.throwing .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-1.throwing) > .name-and-score > .player-1 > .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-2.throwing) > .name-and-score > .player-2 > .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  background: linear-gradient(110deg, #00ffc2, #00d8b0 50%, #00ffc2) !important;
+
+  color: #111724 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .board-number,
+
+body.bracket .live-tournament-groups .live-matches .score {
+
+  background: linear-gradient(110deg, #00ffc2, #00d8b0 50%, #00ffc2) !important;
+
+  border-color: #009e87 !important;
+
+  color: #111724 !important;
+
+}
+
+/* Leg totals stay white and unfilled in the centre of live cards. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .name-and-score .player .score {
+
+  background: transparent !important;
+
+  color: #f5f7fc !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .marker {
+
+  background: rgb(8 15 34 / 40%) !important;
+
+  border-top-color: #354776;
+
+  color: #a6b5d5 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .marker svg {
+
+  color: #00ffc2;
+
+}
+
+body.bracket .live-tournament-groups a:focus-visible {
+
+  outline-color: #00ffc2;
+
+}
+
+
+
+/* Teal labels and white standings points. */
+
+body.bracket .live-tournament-groups::before,
+
+body.bracket .live-tournament-groups > li > h2 {
+
+  color: #00ffc2 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings thead tr {
+
+  color: #00ffc2 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw))[data-format]::before,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player[data-average]::after,
+
+body.bracket .live-tournament-groups .live-matches .marker {
+
+  color: #00ffc2 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr > .points {
+
+  color: #ffffff !important;
+
+}
+
+
+
+/* White remaining-score numbers over the filled gradient circles. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  color: #ffffff !important;
+
+}
+
+
+
+/* Solid teal board labels. In-progress board labels remain hidden. */
+
+body.bracket .live-tournament-groups .live-matches .board-number {
+
+  background: #00ffc2 !important;
+
+  border-color: #00ffc2 !important;
+
+  color: #111724 !important;
+
+}
+
+
+
+
+
+/* BHDP teal accents: mint highlights, brand teal and deep teal shading. */
+
+body.bracket:has(.live-tournament-groups) {
+
+  --bhdp-teal: #00ffc2;
+
+  --bhdp-teal-light: #76ffe1;
+
+  --bhdp-teal-deep: #008b79;
+
+}
+
+body.bracket .live-tournament-groups table.standings tbody tr > .points {
+
+  background: linear-gradient(135deg, #30dbb7 0%, #00b795 48%, #007a6a 100%) !important;
+
+  border-color: #009e87 !important;
+
+  color: #ffffff !important;
+
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 30%), inset 0 -2px 4px rgb(0 48 50 / 22%);
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)),
+
+body.bracket .live-tournament-groups .live-matches > li:nth-child(even) .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)),
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)).boarded {
+
+  border-color: transparent !important;
+
+  background:
+
+    linear-gradient(to bottom, #1e284a, #141c30) padding-box,
+
+    linear-gradient(120deg, #76ffe1 0%, #00ffc2 35%, #008b79 100%) border-box !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) .player.throwing .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-1.throwing) > .name-and-score > .player-1 > .name,
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)):has(> .live-scores > .player-2.throwing) > .name-and-score > .player-2 > .name {
+
+  background: linear-gradient(110deg, #76ffe1 0%, #00ffc2 45%, #00a68c 100%) !important;
+
+  color: #111724 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.in-progress, .concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) > .live-scores > .player > .score {
+
+  background: linear-gradient(135deg, #30dbb7 0%, #00b795 48%, #007a6a 100%) !important;
+
+  color: #ffffff !important;
+
+  box-shadow: inset 0 2px 3px rgb(255 255 255 / 24%), inset 0 -3px 6px rgb(0 48 50 / 28%);
+
+}
+
+body.bracket .live-tournament-groups .live-matches .board-number {
+
+  background: #00ffc2 !important;
+
+  border-color: #00ffc2 !important;
+
+  color: #111724 !important;
+
+}
+
+
+
+
+
+/* Self-contained event banner. Images embedded so no hosting is required. */
+
+body.bracket .live-tournament-groups::before {
+
+  content: "📍 Somerset & Dorset";
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  grid-column: 1 / -1;
+
+  box-sizing: border-box;
+
+  min-height: 132px;
+
+  padding: 16px 20px 16px 68%;
+
+  background-image: none, none;
+
+  background-repeat: no-repeat, no-repeat;
+
+  background-position: left 20px center, center center;
+
+  background-size: min(26%, 280px) auto, 112px 112px;
+
+  border-bottom: 1px solid #354776;
+
+  color: #00ffc2 !important;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(15px, 1.7vw, 25px);
+
+  font-weight: 800;
+
+  line-height: 1.25;
+
+  letter-spacing: 0.5px;
+
+  text-align: right;
+
+  white-space: normal;
+
+}
+
+@media (max-width: 600px) {
+
+  body.bracket .live-tournament-groups::before {
+
+    min-height: 100px;
+
+    padding: 10px 4px 10px 68%;
+
+    background-position: left 4px center, center center;
+
+    background-size: 28% auto, 80px 80px;
+
+    font-size: 13px;
+
+  }
+
+}
+
+
+
+
+
+/* Compact banner with the wide Round Robin logo. */
+
+body.bracket .live-tournament-groups::before {
+
+  min-height: 66px;
+
+  padding: 6px 10px 6px 70%;
+
+  background-position: left 10px center, center center;
+
+  background-size: min(24%, 200px) auto, min(32%, 230px) auto;
+
+  font-size: clamp(13px, 1.4vw, 21px);
+
+}
+
+@media (max-width: 600px) {
+
+  body.bracket .live-tournament-groups::before {
+
+    min-height: 52px;
+
+    padding: 4px 4px 4px 70%;
+
+    background-position: left 4px center, center center;
+
+    background-size: 27% auto, 33% auto;
+
+    font-size: 11px;
+
+  }
+
+}
+
+/* Reduce only the gap after the banner; group-to-group spacing is retained. */
+
+body.bracket .live-tournament-groups::before {
+
+  margin-bottom: -12px;
+
+}
+
+
+
+
+
+/* A little extra breathing room below the compact header. */
+
+body.bracket .live-tournament-groups::before {
+
+  min-height: 76px;
+
+  padding-bottom: 16px;
+
+  background-position: left 10px top 6px, center top 6px;
+
+  margin-bottom: -6px;
+
+}
+
+@media (max-width: 600px) {
+
+  body.bracket .live-tournament-groups::before {
+
+    min-height: 62px;
+
+    padding-bottom: 14px;
+
+    background-position: left 4px top 4px, center top 4px;
+
+  }
+
+}
+
+
+
+
+
+/* Equal top and bottom spacing around the header contents. */
+
+body.bracket .live-tournament-groups::before {
+
+  min-height: 96px;
+
+  padding: 20px 10px 20px 70%;
+
+  background-position: left 10px center, center center;
+
+}
+
+@media (max-width: 600px) {
+
+  body.bracket .live-tournament-groups::before {
+
+    min-height: 76px;
+
+    padding: 16px 4px 16px 70%;
+
+    background-position: left 4px center, center center;
+
+  }
+
+}
+
+
+
+
+
+
+
+/* Standings: rank, name, average, played, leg difference, points.
+
+   Superseded by the final OBS CSS-only standings rules below. */
+
+body.bracket .live-tournament-groups table.standings.round-robin tr {
+
+  grid-template-columns: 7% minmax(0, 1fr) 14% 9% 10% 13% !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > :is(td, th) {
+
+  display: block !important;
+
+  grid-row: 1 !important;
+
+  grid-column: auto;
+
+  order: 0 !important;
+
+  position: static !important;
+
+  white-space: nowrap;
+
+  font-variant-numeric: tabular-nums;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > :nth-child(1) { grid-column: 1 !important; }
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > :nth-child(2) { grid-column: 2 !important; }
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .average {
+
+  display: block !important;
+
+  grid-column: 3 !important;
+
+  font-size: 0.8em;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .played {
+
+  display: block !important;
+
+  grid-column: 4 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .leg-differential + .leg-differential {
+
+  display: block !important;
+
+  grid-column: 5 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .points {
+
+  display: flex !important;
+
+  grid-column: 6 !important;
+
+  justify-content: center;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .match-wins,
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .match-losses,
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .leg-differential:nth-child(1 of .leg-differential) {
+
+  display: none !important;
+
+}
+
+body.bracket .live-tournament-groups > li > h2 { width: 40%; }
+
+
+
+
+
+/* OBS CSS-only standings: position, player, Avg, W, L, LD, points. */
+
+body.bracket .live-tournament-groups table.standings.round-robin tr {
+
+  grid-template-columns: 7% minmax(0, 1fr) 13% 7% 7% 9% 12% !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > :nth-child(1) {
+
+  grid-column: 1 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > :nth-child(2) {
+
+  grid-column: 2 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .average {
+
+  display: block !important;
+
+  grid-column: 3 !important;
+
+  font-size: 0.8em;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .match-wins {
+
+  display: block !important;
+
+  grid-column: 4 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .match-losses {
+
+  display: block !important;
+
+  grid-column: 5 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .leg-differential + .leg-differential {
+
+  display: block !important;
+
+  grid-column: 6 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .points {
+
+  display: flex !important;
+
+  grid-column: 7 !important;
+
+}
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .played,
+
+body.bracket .live-tournament-groups table.standings.round-robin tr > .leg-differential:nth-child(1 of .leg-differential) {
+
+  display: none !important;
+
+}
+
+body.bracket .live-tournament-groups > li > h2 {
+
+  width: 34%;
+
+  font-size: clamp(15px, 4.5cqw, 25px);
+
+}
+
+
+
+
+
+/* Completed results use the live-card layout and highlight the winner. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:has(> .name-and-score > .player.won) > .name-and-score > .player.won > .name {
+
+  background: linear-gradient(110deg, #76ffe1 0%, #00ffc2 45%, #00a68c 100%) !important;
+
+  color: #111724 !important;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score > .name-and-score > .player:is(.won, .lost, .draw) > .score {
+
+  display: flex !important;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex: none !important;
+
+  width: auto !important;
+
+  height: auto !important;
+
+  min-width: 0 !important;
+
+  min-height: 0 !important;
+
+  padding: 0 !important;
+
+  border: 0 !important;
+
+  border-radius: 0 !important;
+
+  background: transparent !important;
+
+  color: #f5f7fc !important;
+
+  font-size: 1.55em !important;
+
+  font-weight: 900 !important;
+
+  line-height: 1 !important;
+
+}
+
+
+
+
+
+
+
+
+
+/* Readable average figures in concluded match summaries only. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) :is(.average, .player-average, .player-1-average, .player-2-average) {
+
+  box-sizing: border-box;
+
+  display: inline-block;
+
+  min-width: 5.5ch;
+
+  margin: 5px 4px !important;
+
+  padding: 6px 10px !important;
+
+  border: 1px solid #354776;
+
+  border-radius: 6px;
+
+  background: rgb(255 255 255 / 6%) !important;
+
+  color: #f5f7fc !important;
+
+  font: 600 clamp(14px, 3.6cqw, 19px)/1.35 Arial, Helvetica, sans-serif !important;
+
+  font-variant-numeric: lining-nums tabular-nums;
+
+  letter-spacing: 0;
+
+  white-space: nowrap;
+
+  text-align: center;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) :is(.averages, .match-averages) {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding: 6px 10px !important;
+
+  color: #a6b5d5;
+
+  line-height: 1.4;
+
+}
+
+
+
+
+
+/* Centre and enlarge concluded-summary averages. */
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) :is(.averages, .match-averages) {
+
+  justify-content: center !important;
+
+  align-items: center;
+
+  gap: 16px;
+
+  width: 100%;
+
+  text-align: center;
+
+}
+
+body.bracket .live-tournament-groups .live-matches .box-score:is(.concluded, .match-concluded, :has(> .name-and-score > .player.won), :has(> .name-and-score > .player.lost), :has(> .name-and-score > .player.draw)) :is(.average, .player-average, .player-1-average, .player-2-average) {
+
+  justify-self: center;
+
+  align-self: center;
+
+  font-size: clamp(17px, 4.2cqw, 23px) !important;
+
+  padding: 8px 12px !important;
+
+  text-align: center !important;
+
+}
+
+
+
+
+
+/* Suppress round/format labels even if retained after a live update. */
+
+body.bracket .live-tournament-groups .live-matches .box-score > .match-round {
+
+  display: none !important;
+
+}
+
+
+
+
+
+/* No groups-page header or header images. */
+
+body.bracket .live-tournament-groups::before {
+
+  content: none !important;
+
+  display: none !important;
+
+  background-image: none !important;
+
+}
