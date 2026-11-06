@@ -61,7 +61,17 @@ function(_setup_obs_studio)
     set(_cmake_arch "-DCMAKE_OSX_ARCHITECTURES:STRING='arm64;x86_64'")
     set(_cmake_extra "-DCMAKE_OSX_DEPLOYMENT_TARGET=${CMAKE_OSX_DEPLOYMENT_TARGET}")
   endif()
-
+if(OS_MACOS AND _obs_version VERSION_EQUAL "32.0.4")
+  # OBS 32.0.4 needs Swift enabled when building with plugins disabled.
+  set(_metal_cmake "${dependencies_dir}/${_obs_destination}/libobs-metal/CMakeLists.txt")
+  file(READ "${_metal_cmake}" _metal_contents)
+  if(NOT _metal_contents MATCHES "enable_language\\(Swift\\)")
+    string(REPLACE "add_library(libobs-metal SHARED)"
+      "enable_language(Swift)\n\nadd_library(libobs-metal SHARED)"
+      _metal_contents "${_metal_contents}")
+    file(WRITE "${_metal_cmake}" "${_metal_contents}")
+  endif()
+endif()
   message(STATUS "Configure ${label} (${arch})")
   execute_process(
     COMMAND
